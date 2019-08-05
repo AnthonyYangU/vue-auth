@@ -15,22 +15,20 @@ Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  const role = localStorage.getItem('ms_username');
-  if (!role && to.path !== '/login') {
-      next('/login');
-  } else if (to.meta.permission) {
-      // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-      role === 'Admin' ? next() : next('/403');
-  } else {
-      // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容
-      if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor') {
-          Vue.prototype.$alert('vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看', '浏览器不兼容通知', {
-              confirmButtonText: '确定'
-          });
+    const signal = store.state.signal
+    if (to.meta.requiresAuth) { // 判断该路由是否需要登录权限
+      if (signal) { // 通过vuex state获取当前的token是否存在
+        next()
       } else {
-          next();
+        console.log('该页面需要登陆')
+        next({
+          path: '/403',
+        //   query: {redirect: '/dashboard'} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        })
       }
-  }
+    } else {
+      next()
+    }
 })
 
 new Vue({

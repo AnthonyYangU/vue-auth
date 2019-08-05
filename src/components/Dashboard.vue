@@ -112,7 +112,8 @@
         name: 'dashboard',
         data() {
             return {
-                name: localStorage.getItem('ms_username'),
+                // name: localStorage.getItem('ms_username'),
+                name:'Admin',
                 todoList: [{
                         title: '今天要修复100个bug',
                         status: false,
@@ -216,7 +217,7 @@
                 // 调用renderChart方法对图表进行重新渲染
                 window.addEventListener('resize', this.renderChart)
             },
-            handleBus(msg){
+            handleBus(){
                 setTimeout(() => {
                     this.renderChart()
                 }, 300);

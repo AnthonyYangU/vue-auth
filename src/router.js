@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard'
+      redirect: '/login'
     },
     {
       path:'/',
@@ -17,30 +17,30 @@ export default new Router({
         {
             path: '/dashboard',
             component: resolve => require(['./components/Dashboard.vue'], resolve),
-            meta: { title: '系统首页' }
+            meta: {requiresAuth: true}
         },
         {
           path: '/table',
           component: resolve => require(['./components//MyTable.vue'], resolve),
-          meta: { title: '基础表格' }
+          meta: {requiresAuth: true}
         },
         {
           // vue-schart组件
           path: '/charts',
           component: resolve => require(['./components/BaseCharts.vue'], resolve),
-          meta: { title: 'schart图表' }
+          meta: {requiresAuth: true}
         },
-        {
-          path: '/404',
-          component: resolve => require(['./components/404.vue'], resolve),
-          meta: { title: '404' }
-        },
-        {
-            path: '/403',
-            component: resolve => require(['./components/403.vue'], resolve),
-            meta: { title: '403' }
-        }        
+
+        
       ]
+    },
+    {
+      path: '/403',
+      component: resolve => require(['./components/403.vue'], resolve),
+    },
+    {
+      path: '/404',
+      component: resolve => require(['./components/404.vue'], resolve),
     },
     {
       path: '/login',

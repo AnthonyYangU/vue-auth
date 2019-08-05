@@ -2,56 +2,60 @@
     <div class="login-wrap">
         <div class="ms-login">
             <div class="ms-title">后台管理系统</div>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="username">
+            <el-form :model="ruleForm" ref="ruleForm" label-width="0px" class="ms-content">
+                <el-form-item prop="userName">
+                    <el-input v-model="ruleForm.userName" placeholder="userName">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')">
+                    <el-input type="password" placeholder="password" v-model="ruleForm.userPwd">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button type="primary" @click="login">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips" v-show="errorTip">用户名或者密码错误</p>
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         data: function(){
             return {
+                errorTip:false,
                 ruleForm: {
-                    username: 'Admin',
-                    password: '123123'
-                },
-                rules: {
-                    username: [
-                        { required: true, message: '请输入用户名', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
-                    ]
+                    userName: 'Admin',
+                    userPwd: 'admin'
                 }
             }
         },
         methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',this.ruleForm.username);
-                        this.$router.push('/');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+            login(){
+                if(!this.ruleForm.userName || !this.ruleForm.userPwd){
+                  this.errorTip = true;
+                  this.$store.commit("updateUserSignal",false)
+                  return;
+                }
+                axios.post("/api/login",{
+                  userName:this.ruleForm.userName,
+                  userPwd:this.ruleForm.userPwd
+                }).then((response)=>{
+                    let res = response.data;
+                    if(res.status=="0"){
+                      this.errorTip = false;
+                      this.$store.commit("updateUserSignal",true)
+                      this.$router.push('/dashboard');
+                    }else{
+                      this.$store.commit("updateUserSignal",false)
+                      this.errorTip = true;
                     }
                 });
-            }
+            }  
         }
     }
 </script>
@@ -96,6 +100,6 @@
     .login-tips{
         font-size:12px;
         line-height:30px;
-        color:#fff;
+        color:rgb(211, 19, 19);
     }
 </style>
