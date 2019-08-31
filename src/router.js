@@ -30,7 +30,11 @@ export default new Router({
           component: resolve => require(['./components/BaseCharts.vue'], resolve),
           meta: {requiresAuth: true}
         },
-
+        {
+            path:'/upload',
+            component: resolve => require(['./components/Upload.vue'], resolve),
+            meta: {requiresAuth: true}
+        }
         
       ]
     },

@@ -38,7 +38,7 @@
             login(){
                 if(!this.ruleForm.userName || !this.ruleForm.userPwd){
                   this.errorTip = true;
-                  this.$store.commit("updateUserSignal",false)
+                  sessionStorage.setItem("loginstate","1")
                   return;
                 }
                 axios.post("/api/login",{
@@ -48,11 +48,14 @@
                     let res = response.data;
                     if(res.status=="0"){
                       this.errorTip = false;
-                      this.$store.commit("updateUserSignal",true)
+                      sessionStorage.setItem("loginstate",0)
+                    //   this.$store.commit("updateUserSignal",true)
+                      
                       this.$router.push('/dashboard');
                     }else{
-                      this.$store.commit("updateUserSignal",false)
-                      this.errorTip = true;
+                    //   this.$store.commit("updateUserSignal",false)
+                        sessionStorage.setItem("loginstate","1")
+                        this.errorTip = true;
                     }
                 });
             }  

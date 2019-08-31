@@ -52,6 +52,11 @@
                         icon: 'el-icon-pie-chart',
                         index: 'charts',
                         title: 'schart图表'
+                    },
+                    {
+                        icon:'el-icon-rank',
+                        index:'upload',
+                        title:'上传文件'
                     }    
                 ]
             }
