@@ -7,7 +7,7 @@
         </div>
         <div class="container">
             <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="deleteAll">批量删除</el-button>
-            
+            <el-button type="primary" icon="el-icon-sort" class="handle-del mr10" @click="sortReverse">排列顺序</el-button>            
             <el-table
             :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             style="width: 100%" @selection-change="handleSelectionChange">
@@ -15,31 +15,59 @@
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>      -->
-                <el-table-column type="selection" width="55" align="center"></el-table-column>       
-                <el-table-column prop="id" label="Id">
+                <el-table-column type="selection" width="50" align="center"></el-table-column>       
+                <el-table-column 
+                    prop="id" 
+                    label="Id"
+                    >
                 </el-table-column>
-                 
                 <el-table-column
                     prop="deviceId"
                     label="DeviceId"
                     >
                 </el-table-column>
                 <el-table-column
-                    prop="forcex"
-                    label="Forcex">
+                    prop="groupId"
+                    label="GroupId">
                 </el-table-column>
                 <el-table-column
-                    prop="torque"
-                    label="Torque">
-                </el-table-column> 
-                <el-table-column
-                    prop="buttery"
-                    label="Buttery">
-                </el-table-column> 
+                    prop="battery"
+                    label="Battery"
+                    >            
+                </el-table-column>                         
                 <el-table-column
                     prop="temperature"
-                    label="Temperature">
-                </el-table-column>    
+                    label="Temp"
+                    >
+                </el-table-column>   
+                <el-table-column
+                    prop="deepth"
+                    label="Deepth"
+                    >
+                </el-table-column>                                     
+                <el-table-column
+                    prop="force1"
+                    label="Force1"
+                    >
+                </el-table-column>  
+                <el-table-column
+                    prop="force2"
+                    label="Force2"
+                    >
+                </el-table-column>                                     
+                <el-table-column
+                    prop="stress1"
+                    label="Stress1"
+                    >
+                </el-table-column>               
+                <el-table-column
+                    prop="stress2"
+                    label="Stress2">
+                </el-table-column>
+                <el-table-column
+                    prop="current"
+                    label="Currrent">
+                </el-table-column>  
                 <el-table-column
                     prop="date"
                     label="Date">
@@ -122,23 +150,31 @@
             <br>
             <br>
 
-            <el-col :span='12'>
+            <el-col :span='6'>
                 <el-input
                     placeholder="Min id"
                     suffix-icon="el-icon-grape"
                     v-model="minId"
-                    style="width:95%"
+                    style="width:90%"
                 >
                 </el-input>
             </el-col>
-            <el-col :span='12'>
+            <el-col :span='6'>
                 <el-input
                     placeholder="Max id"
                     suffix-icon="el-icon-cherry"
                     v-model="maxId"
-                    style="width:100%"
+                    style="width:90%"
                 >
                 </el-input>                
+            </el-col>
+            <el-col :span='12'>
+                <el-input
+                    placeholder="输入GroupId"
+                    suffix-icon="el-icon-circle-plus-outline"
+                    v-model="selectGroup"
+                >
+                </el-input>             
             </el-col>
             <br>
             <br/>
@@ -173,6 +209,7 @@
                 selectTime:'',
                 startTime:'',
                 selectDevice:'',
+                selectGroup:'',
                 selectType:[],
                 selectId:'',
                 selectDel:[],
@@ -187,17 +224,38 @@
                 // select_word:'',
                 currentPage: 1,
                 options:[{
-                    value:'forcex',
-                    label:'Forcex'
-                },{
-                    value:'torque',
-                    label:'Torque'
+                    value:'groupId',
+                    label:'GroupId'
                 },{
                     value:'buttery',
                     label:'Buttery'
                 },{
                     value:'temperature',
                     label:'Temperature'
+                },{
+                    value:'deepth',
+                    label:'Deepth'
+                },{
+                    value:'force1',
+                    label:'Force1'
+                },{
+                    value:'force2',
+                    label:'Force2'
+                },{
+                    value:'stress1',
+                    label:'Stress1'
+                },{
+                    value:'stress2',
+                    label:'Stress2'
+                },{
+                    value:'current',
+                    label:'Current'
+                },{
+                    value:'date',
+                    label:'Date'
+                },{
+                    value:'time',
+                    label:'Time'
                 }],
                 pickerOptions: {
                     disabledDate(time) {
@@ -257,6 +315,9 @@
                             this.tableData = [];
                         }
                     })                    
+                },
+                sortReverse(){
+                    this.tableData.reverse();
                 },
                 handleSelectionChange(val) {
                     this.selectDel = val;
@@ -341,6 +402,7 @@
                         endTime:time[1],
                         type:this.selectType,
                         deviceId:this.selectDevice,
+                        groupId:this.selectGroup,
                         maxId:maxId,
                         minId:minId,
                     }).then((response)=>{
@@ -394,19 +456,17 @@
                                 }else{
                                     this.init();
                                 }
-                                
                             }
                         })
                     }         
                 },
                 export2Excel() {
                     require.ensure([], () => {
-
                         let types;
                         if (this.searchState == 1){
-                            types = ['id','deviceId','forcex','torque','buttery','temperature','date','time']
+                            types = ['id','deviceId','groupId','battery','temperature','deepth','force1','force2','stress1','stress2','current','date','time']
                         }else{
-                            types = ['id'].concat(this.selectType)
+                            types = ['battery'].concat(this.selectType)
                         }
                         const { export_json_to_excel } = require('../excel/Export2Excel');
                         const tHeader = types;  // 设置Excel的表格第一行的标题
