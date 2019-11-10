@@ -262,7 +262,7 @@
 
                 this.chartOption = {
                     title:{
-                        text:'Railway siganl acquisition'
+                        text:'Railway signal acquisition'
                     },
                     tooltip:{
                         trigger:'axis',
