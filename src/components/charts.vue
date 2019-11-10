@@ -382,7 +382,7 @@
 
 <style scoped>
     .echart{
-        width:115%;
+        width:100%;
         height:500px
     }
 </style>
