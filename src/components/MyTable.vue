@@ -179,12 +179,14 @@
             <br>
             <br/>
             <br/>
-            <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button> 
+            <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+            <el-button type="primary" icon="el-icon-refresh" @click = "init">全部数据</el-button>
+            <!-- <el-button type="primary" icon="el-icon-edit-outline" @click = "drawChart">绘制图表</el-button>  -->
             <el-button type="primary" icon="el-icon-download" @click = "export2Excel">导出表格</el-button>
+            <el-button type="primary" icon="el-icon-delete" @click = "handleIdDelete">通过Id删除</el-button>
             <br/>
             <br/>
-            
-            <!-- <el-button @click="test">test</el-button> -->
+                        
         </div>
         
 
@@ -193,7 +195,7 @@
             <div class="del-dialog-cnt">删除不可恢复，是否确定删除？</div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="delVisible = false">取 消</el-button>
-                <el-button type="primary" @click="deleteRow">确 定</el-button>
+                <el-button type="primary" @click="deleteAll">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -202,12 +204,11 @@
 <script>
     import axios from 'axios'
     export default {
-        name: 'basetable',
+        name: 'MyTable',
         data() {
             return {
                 selectDate:'',
                 selectTime:'',
-                startTime:'',
                 selectDevice:'',
                 selectGroup:'',
                 selectType:[],
@@ -227,8 +228,8 @@
                     value:'groupId',
                     label:'GroupId'
                 },{
-                    value:'buttery',
-                    label:'Buttery'
+                    value:'battery',
+                    label:'Battery'
                 },{
                     value:'temperature',
                     label:'Temperature'
@@ -310,6 +311,7 @@
                                     res.data[jj].id=jj;
                                     this.completeData[jj] = res.data[jj]._id;
                             }
+
                             this.tableData = res.data;
                         }else{
                             this.tableData = [];
@@ -320,12 +322,28 @@
                     this.tableData.reverse();
                 },
                 handleSelectionChange(val) {
-                    this.selectDel = val;
-                    // console.log(this.selectDel)
+                    this.selectDel =[];
+                    for(let j of val){
+                        this.selectDel.push(j._id);
+                    }
                 },
                 handleDelete(_id){
+                    this.selectDel = [];
                     this.delVisible = true;
-                    this.selectId = _id;
+                    this.selectDel.push(_id);
+                    // console.log(this.selectDel);
+                },
+                handleIdDelete(){
+                    if(typeof(this.maxId) != 'undefined' && this.maxId != '' && typeof(this.minId) != 'undefined' && this.minId != ''){
+                        this.selectDel =[];
+                        for(let j of this.tableData){
+                            if(j.id>=this.minId && j.id<=this.maxId){
+                                this.selectDel.push(j._id);
+                            }
+                            if(j.id>this.maxId)break;
+                        }
+                        this.delVisible = true;
+                    }
                 },
                 // handleDeleteAll(){
                 //     this.allVisible = true;
@@ -421,30 +439,10 @@
                     });
                     this.searchState = 0;                  
                 },
-                deleteRow(){
-                    this.$message.success('删除成功');
-                    this.delVisible = false;
-                    if(this.selectId!=''){
-                        axios.post("/api/delete",{
-                            deleteId:this.selectId
-                        }).then((response)=>{
-                            let res = response.data;
-                            if(res.status==0){
-                                if(this.searchState==0){
-                                    let index = this.find(this.selectId);
-                                    this.completeData.splice(index,1);
-                                    this.search();
-                                }else{
-                                    this.init();
-                                }
-                            }
-                        })
-                    }              
-                },
                 deleteAll(){
                     this.$message.success('删除成功');
                     // console.log(this.selectDel)
-                    // this.allVisible = false;
+                    this.delVisible = false;
                     if(this.selectDel !=[]){
                         axios.post("/api/dm",{
                             deleteMany:this.selectDel
@@ -460,6 +458,10 @@
                         })
                     }         
                 },
+                // drawChart(){
+                //     this.$store.commit("updateChartData",{data:this.tableData});
+                //     this.$router.push('/charts');
+                // },
                 export2Excel() {
                     require.ensure([], () => {
                         let types;

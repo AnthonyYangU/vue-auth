@@ -25,17 +25,15 @@ export default new Router({
           meta: {requiresAuth: true}
         },
         {
-          // vue-schart组件
-          path: '/charts',
-          component: resolve => require(['./components/BaseCharts.vue'], resolve),
-          meta: {requiresAuth: true}
-        },
-        {
             path:'/upload',
             component: resolve => require(['./components/Upload.vue'], resolve),
             meta: {requiresAuth: true}
+        },
+        {
+          path:'/mycharts',
+          component:resolve =>require(['./components/charts.vue'],resolve),
+          meta: {requiresAuth:true}
         }
-        
       ]
     },
     {

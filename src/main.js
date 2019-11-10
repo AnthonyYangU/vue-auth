@@ -4,13 +4,13 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import ElementUI from 'element-ui'
-
+import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css'
 import vueXlsxTable from 'vue-xlsx-table'
 Vue.use(vueXlsxTable,{rABS:false})
 
 Vue.use(ElementUI)
-
+Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {

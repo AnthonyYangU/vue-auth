@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    signal:false
+    chartData:[]
   },
   mutations: {
-    updateUserSignal(state,signal){
-      state.signal = signal;
+    updateChartData(state,data){
+      state.chartData = data;
     }
   },
   actions: {
