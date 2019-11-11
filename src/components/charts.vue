@@ -94,7 +94,7 @@
             <br>
             <br/>
             <br>
-            <el-button id= "haha" type="primary" icon="el-icon-delete" @click = "draw">绘图</el-button>
+            <el-button  type="primary" icon="el-icon-delete" @click = "draw">绘图</el-button>
         </div>        
     </div>
 </template>

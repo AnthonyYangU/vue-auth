@@ -17,23 +17,28 @@ export default new Router({
         {
             path: '/dashboard',
             component: resolve => require(['./components/Dashboard.vue'], resolve),
-            meta: {requiresAuth: true}
+            meta: {requiresAuth: true,title:'系统首页'}
         },
         {
           path: '/table',
           component: resolve => require(['./components//MyTable.vue'], resolve),
-          meta: {requiresAuth: true}
+          meta: {requiresAuth: true,title:'数据表格'}
         },
         {
             path:'/upload',
             component: resolve => require(['./components/Upload.vue'], resolve),
-            meta: {requiresAuth: true}
+            meta: {requiresAuth: true,title:'上传文件'}
         },
         {
           path:'/mycharts',
           component:resolve =>require(['./components/charts.vue'],resolve),
-          meta: {requiresAuth:true}
-        }
+          meta: {requiresAuth:true,title:'图表信息'}
+        },
+        // {
+        //   path:'/tabs',
+        //   component:resolve =>require(['./components/Tabs.vue'],resolve),
+        //   meta: {requiresAuth:true,title:'通知消息'}
+        // }
       ]
     },
     {

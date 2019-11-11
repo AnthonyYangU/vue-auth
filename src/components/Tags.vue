@@ -6,6 +6,7 @@
                     {{item.title}}
                 </router-link>
                 <span class="tags-li-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
+                <!-- <span @click="test">Test</span> -->
             </li>
         </ul>
         <div class="tags-close-box">
@@ -31,6 +32,9 @@
             }
         },
         methods: {
+            test(){
+                console.log(this.tagsList)
+            },
             isActive(path) {
                 return path === this.$route.fullPath;
             },

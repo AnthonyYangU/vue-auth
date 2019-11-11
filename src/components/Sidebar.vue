@@ -46,18 +46,23 @@
                     {
                         icon: 'el-icon-tickets',
                         index: 'table',
-                        title: '基础表格'
+                        title: '数据表格'
                     },
                     {
                         icon: 'el-icon-pie-chart',
                         index:'mycharts',
-                        title: 'myCharts'
+                        title: '图表信息'
                     },
                     {
                         icon:'el-icon-rank',
                         index:'upload',
                         title:'上传文件'
-                    } 
+                    },
+                    // {
+                    //     icon:'el-icon-warning',
+                    //     index:'tabs',
+                    //     title:'通知消息'
+                    // } 
                 ]
             }
         },

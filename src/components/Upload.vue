@@ -7,17 +7,16 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-
-            <div class="crop-demo-btn">选择文件
-                <input type="file" class="crop-input"  @change="upload"/>
+            
+            <div class="crop-demo-btn">
+                <el-input type="file" class="crop-input"  @change="upload"></el-input>
+                <span>请选择需要上传的文件</span>
             </div>
+            <br>
+            <vue-xlsx-table  class="crop-demo-btn" @on-select-file="handleSelectedFile">将xlsx数据导入数据库</vue-xlsx-table>
+            <br>
+            <br>
 
-            <br>
-
-            <vue-xlsx-table  class="crop-demo-btn" icon=“el-icon-upload2” @on-select-file="handleSelectedFile">将xlsx数据导入数据库</vue-xlsx-table>
-            <br>
-            <br>
-            <!-- <el-button class="crop-demo-btn" type='primary' @click="input">test</el-button> -->
         </div>
         
     </div>
@@ -36,7 +35,6 @@
         methods:{
             upload(e){
                 let file = e.target.files[0];
-
                 let param = new FormData()
                 param.append('file',file,file.name)
                 console.log(param.get('file'))
@@ -44,7 +42,9 @@
                     headers:{'Content-Type':'multipart/form-data'}
                 }
                 axios.post('/api/upload',param,config).then(response=>{
-                    console.log(response.data)
+                    if(response.data.status=='0'){
+                        this.$message.success('文件上传成功');
+                    }
                 })
             },
             handleSelectedFile (convertedData) {
@@ -52,17 +52,15 @@
                     delete i.id
                 }
                 this.tableData = convertedData.body;
-                // console.log(dataArr)
                 axios.post("/api/inputdb",{
                     array:this.tableData
                 }).then((response)=>{
                     let res = response.data;
                     if(res.status == "0"){
-                        console.log("success")
+                        this.$message.success(`xlsx数据上传成功,共上传${this.tableData.length}条数据！`);
                     }
                 })
-            },
-
+            }
         }
     }
 </script>
@@ -89,16 +87,15 @@
         margin-left: 30px;
         background-color: #409eff;
         color: #fff;
-        font-size: 14px;
+        font-size: 12px;
         border-radius: 4px;
         box-sizing: border-box;
     }
     .crop-input{
         position: absolute;
-        width: 100px;
+        border-radius: 4px;
+        width: 200px;
         height: 40px;
-        left: 0;
-        top: 0;
         opacity: 0;
         cursor: pointer;
     }
