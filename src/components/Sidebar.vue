@@ -63,6 +63,11 @@
                     //     index:'tabs',
                     //     title:'通知消息'
                     // } 
+                    {
+                        icon:'el-icon-warning',
+                        index:'geo',
+                        title:'地理显示'
+                    }
                 ]
             }
         },

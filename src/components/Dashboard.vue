@@ -34,6 +34,7 @@
 
 <script>
     import Schart from 'vue-schart';
+    import axios from 'axios'
     //import bus from './bus';
     export default {
         name: 'dashboard',
@@ -41,56 +42,32 @@
             return {
                 // name: localStorage.getItem('ms_username'),
                 name:'Admin',
-                todoList: [{
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: false,
-                    }, {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: true,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: true,
-                    }
-                ],
                 data: [{
-                        name: '2018/09/04',
+                        name: '2019/09/04',
                         value: 1083
                     },
                     {
-                        name: '2018/09/05',
+                        name: '2019/09/05',
                         value: 941
                     },
                     {
-                        name: '2018/09/06',
+                        name: '2019/09/06',
                         value: 1139
                     },
                     {
-                        name: '2018/09/07',
+                        name: '2019/09/07',
                         value: 816
                     },
                     {
-                        name: '2018/09/08',
+                        name: '2019/09/08',
                         value: 327
                     },
                     {
-                        name: '2018/09/09',
+                        name: '2019/09/09',
                         value: 228
                     },
                     {
-                        name: '2018/09/10',
+                        name: '2019/09/10',
                         value: 1065
                     }
                 ],
@@ -120,7 +97,10 @@
                 return this.name === 'Admin' ? '超级管理员' : '普通用户';
             }
         },
-        methods: {
+        mounted(){
+            
+        },
+        methods: {            
             userGuide(){
                 axios({
                     method:'post',

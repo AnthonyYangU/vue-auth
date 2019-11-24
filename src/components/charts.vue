@@ -101,11 +101,6 @@
 
 <script>
     import axios from 'axios'
-    // let echarts = require('echarts/lib/echarts')
-    // let instance = axios.create({
-    //     timeout:5000,
-    //     headers:{'Content-Type':'application/json;charset=UTF-8'}
-    // })
     export default{
         name:"echart",
         data(){
@@ -215,7 +210,8 @@
                         this.selectType = ['temperature'];
                         this.dataProcessing(res.data);
                         let mychart = this.$echarts.init(this.$refs.myChart);
-                        mychart.setOption(this.chartOption);  
+                        mychart.setOption(this.chartOption);
+                        // window.onresize = mychart.resize;
                     }else{
                         this.completeData = [];
                     }

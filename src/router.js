@@ -39,6 +39,11 @@ export default new Router({
         //   component:resolve =>require(['./components/Tabs.vue'],resolve),
         //   meta: {requiresAuth:true,title:'通知消息'}
         // }
+        {
+          path:'/geo',
+          component:resolve=>require(['./components/geo.vue'],resolve),
+          meta: {requiresAuth:true,title:'地理显示'}
+        }
       ]
     },
     {
