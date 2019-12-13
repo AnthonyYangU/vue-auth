@@ -1,11 +1,11 @@
 <template>
     <div class="header">
         <!-- 折叠按钮 -->
-        <div class="collapse-btn" @click="collapseChage">
+        <div class="bookIcon">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">论文格式检查</div>
+        <div class="logo">后台管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -29,7 +29,7 @@
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator">
-                    <img src="../assets/img/timg.jpg" />
+                    <img src="../assets/img/book.jpg" />
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
@@ -115,18 +115,20 @@ export default {
 </script>
 <style scoped>
 .header {
-    position: relative;
+    position: fixed;
     box-sizing: border-box;
     width: 100%;
     height: 70px;
     font-size: 22px;
     color: #fff;
+    background-color: red
 }
-.collapse-btn {
+.bookIcon {
     float: left;
     padding: 0 21px;
-    cursor: pointer;
+    margin:20px;
     line-height: 70px;
+    background: url(../assets/img/book.jpg)
 }
 .header .logo {
     float: left;
