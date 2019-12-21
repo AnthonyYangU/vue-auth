@@ -1,5 +1,5 @@
 {
-  "name": "vue-auth",
+  "name": "paper-detector",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,16 +9,23 @@
     "dev": "npm run serve"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "axios": "^0.19.0",
+    "bootstrap": "^4.4.1",
     "core-js": "^2.6.5",
     "echarts": "^4.4.0",
     "element-ui": "^2.11.1",
     "file-saver": "^2.0.2",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "swiper": "^5.2.1",
     "vue": "^2.6.10",
+    "vue-awesome-swiper": "^3.1.3",
     "vue-cropperjs": "^4.0.0",
     "vue-router": "^3.0.3",
     "vue-schart": "^1.0.0",
     "vue-xlsx-table": "^1.2.8",
+    "vuescroll": "^4.14.4",
     "vuex": "^3.0.1",
     "xlsx": "^0.15.1"
   },

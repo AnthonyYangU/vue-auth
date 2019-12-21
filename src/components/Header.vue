@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">论文格式检查</div>
+        <div class="logo">论文格式检测系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -38,10 +38,11 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="https://github.com/anthonyyangu/vue-auth" target="_blank">
+                        <!-- <a href="https://github.com/" target="_blank">
                             <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
+                        </a> -->
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                        <el-dropdown-item divided command="returnFirstPage">返回首页</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -55,13 +56,13 @@ export default {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'Anthony',
+            name: '',
             message: 2
         };
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
+            let username = sessionStorage.getItem('ms_username');
             return username ? username : this.name;
         }
     },
@@ -69,8 +70,13 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
+                sessionStorage.removeItem('ms_username');
+                sessionStorage.setItem('loginstate',1);
                 this.$router.push('/login');
+            }
+            if (command == 'returnFirstPage'){
+                //sessionStorage.removeItem('loginstate');
+                this.$router.push('/firstPage');
             }
         },
         // 侧边栏折叠
@@ -118,48 +124,57 @@ export default {
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    height: 70px;
+    height: 50px;
     font-size: 22px;
     color: #fff;
+    background-color:rgab(255,255,255,0.2);
 }
 .collapse-btn {
     float: left;
     padding: 0 21px;
     cursor: pointer;
-    line-height: 70px;
+    line-height: 50px;
 }
 .header .logo {
     float: left;
     width: 150px;
-    line-height: 70px;
+    line-height: 50px;
 }
 .header-right {
     float: right;
-    padding-right: 50px;
+    /* padding-right: -50px; */
+    width:250px;
+    /* background-color: red; */
 }
 .header-user-con {
     display: flex;
-    height: 70px;
+    height: 50px;
     align-items: center;
+    /* background:hotpink */
 }
 .btn-fullscreen {
+    float:right;
     transform: rotate(45deg);
-    margin-right: 5px;
     font-size: 24px;
+    /* background-color: hotpink; */
+    margin-top:2px;
+    margin-right: -18px;
 }
-.btn-bell,
-.btn-fullscreen {
+
+.btn-bell{
     position: relative;
     width: 30px;
     height: 30px;
     text-align: center;
-    border-radius: 15px;
+    margin-top:5px;
+    /* border-radius: 15px; */
     cursor: pointer;
+    margin-left:40px;
 }
 .btn-bell-badge {
     position: absolute;
     right: 0;
-    top: -2px;
+    /* top: -2px; */
     width: 8px;
     height: 8px;
     border-radius: 4px;
@@ -170,7 +185,7 @@ export default {
     color: #fff;
 }
 .user-name {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .user-avator {
     margin-left: 20px;

@@ -34,52 +34,52 @@
 
 <script>
     import Schart from 'vue-schart';
-    import axios from 'axios'
+    // import axios from 'axios'
     //import bus from './bus';
     export default {
         name: 'dashboard',
         data() {
             return {
                 // name: localStorage.getItem('ms_username'),
-                name:'Admin',
+                name:'',
                 data: [{
-                        name: '2019/09/04',
-                        value: 1083
+                        name: '2019/12/16',
+                        value: 83
                     },
                     {
-                        name: '2019/09/05',
-                        value: 941
+                        name: '2019/12/17',
+                        value: 41
                     },
                     {
-                        name: '2019/09/06',
-                        value: 1139
+                        name: '2019/12/18',
+                        value: 39
                     },
                     {
-                        name: '2019/09/07',
-                        value: 816
+                        name: '2019/12/19',
+                        value: 16
                     },
                     {
-                        name: '2019/09/08',
-                        value: 327
+                        name: '2019/12/20',
+                        value: 27
                     },
                     {
-                        name: '2019/09/09',
-                        value: 228
+                        name: '2019/12/21',
+                        value: 28
                     },
                     {
-                        name: '2019/09/10',
-                        value: 1065
+                        name: '2019/12/22',
+                        value: 65
                     }
                 ],
                 options: {
-                    title: '最近七天每天的接受数据次数',
+                    title: '最近七天论文格式检测次数',
                     showValue: false,
                     fillColor: 'rgb(45, 140, 240)',
                     bottomPadding: 30,
                     topPadding: 30
                 },
                 options2: {
-                    title: '最近七天接受数据量变化趋势',
+                    title: '最近七天论文格式检测次数变化',
                     fillColor: '#FC6FA1',
                     axisColor: '#008ACD', 
                     contentColor: '#EEEEEE',
@@ -98,32 +98,35 @@
             }
         },
         mounted(){
-            
+            this.name=sessionStorage.getItem("ms_username")
         },
         methods: {            
-            userGuide(){
-                axios({
-                    method:'post',
-                    url:'api/download/',
-                    responseType:'blob'
-                }).then(response=>{
-                    this.download(response.data)
-                }).catch((error)=>{
-                    console.log(error)
-                })
-            },
-            download(data){
-                if(!data){
-                    return
-                }
-                let url = window.URL.createObjectURL(new Blob([data]));
-                let link = document.createElement('a');
-                // link.style.display = url;
-                link.href=url;
-                link.setAttribute('download','UserGuild.pdf');
-                document.body.appendChild(link);
-                link.click();
-            }    
+            // userGuide(){
+            //     // axios({
+            //     //     method:'post',
+            //     //     url:'api/download/',
+            //     //     responseType:'blob'
+            //     // }).then(response=>{
+            //     //     this.download(response.data)
+            //     // }).catch((error)=>{
+            //     //     console.log(error)
+            //     // })
+            //     axios.get('/api/test').then((res)=>{
+            //         console.log(res)
+            //     })
+            // },
+            // download(data){
+            //     if(!data){
+            //         return
+            //     }
+            //     let url = window.URL.createObjectURL(new Blob([data]));
+            //     let link = document.createElement('a');
+            //     // link.style.display = url;
+            //     link.href=url;
+            //     link.setAttribute('download','UserGuild.pdf');
+            //     document.body.appendChild(link);
+            //     link.click();
+            // }    
         }
     }
 

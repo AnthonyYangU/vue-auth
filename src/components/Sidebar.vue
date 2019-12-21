@@ -38,36 +38,42 @@
             return {
                 collapse: false,
                 items: [
-                    {
-                        icon: 'el-icon-view',
-                        index: 'dashboard',
-                        title: '系统首页'
-                    },
-                    {
-                        icon: 'el-icon-tickets',
-                        index: 'table',
-                        title: '数据表格'
-                    },
-                    {
-                        icon: 'el-icon-pie-chart',
-                        index:'mycharts',
-                        title: '图表信息'
-                    },
+
+                    // {
+                    //     icon: 'el-icon-tickets',
+                    //     index: 'table',
+                    //     title: '数据表格'
+                    // },
+                    // {
+                    //     icon: 'el-icon-pie-chart',
+                    //     index:'mycharts',
+                    //     title: '图表信息'
+                    // },
                     {
                         icon:'el-icon-rank',
                         index:'upload',
-                        title:'上传文件'
+                        title:'论文检测'
                     },
-                    // {
-                    //     icon:'el-icon-warning',
-                    //     index:'tabs',
-                    //     title:'通知消息'
-                    // } 
+                    {
+                        icon:'el-icon-document-remove',
+                        index:'paperForm',
+                        title:'论文格式'
+                    },
+                    {
+                        icon: 'el-icon-view',
+                        index: 'dashboard',
+                        title: '个人中心'
+                    },
                     {
                         icon:'el-icon-warning',
-                        index:'geo',
-                        title:'地理显示'
-                    }
+                        index:'tabs',
+                        title:'通知消息'
+                    } 
+                    // {
+                    //     icon:'el-icon-warning',
+                    //     index:'geo',
+                    //     title:'地理显示'
+                    // }
                 ]
             }
         },
@@ -90,7 +96,7 @@
         display: block;
         position: absolute;
         left: 0;
-        top: 70px;
+        top: 50px;
         bottom:0;
         overflow-y: scroll;
     }
@@ -98,7 +104,7 @@
         width: 0;
     }
     .sidebar-el-menu:not(.el-menu--collapse){
-        width: 250px;
+        width: 160px;
     }
     .sidebar > ul {
         height:100%;

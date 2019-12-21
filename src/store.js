@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    chartData:[]
+    registerState:true
   },
   mutations: {
-    updateChartData(state,data){
-      state.chartData = data;
+    updateRegisterState(state,data){
+      state.registerState = data;
     }
   },
   actions: {

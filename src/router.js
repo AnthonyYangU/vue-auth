@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/firstPage'
     },
     {
       path:'/',
@@ -17,33 +17,38 @@ export default new Router({
         {
             path: '/dashboard',
             component: resolve => require(['./components/Dashboard.vue'], resolve),
-            meta: {requiresAuth: true,title:'系统首页'}
+            meta: {requiresAuth: true,title:'个人中心'}
         },
-        {
-          path: '/table',
-          component: resolve => require(['./components//MyTable.vue'], resolve),
-          meta: {requiresAuth: true,title:'数据表格'}
-        },
+        // {
+        //   path: '/table',
+        //   component: resolve => require(['./components//MyTable.vue'], resolve),
+        //   meta: {requiresAuth: true,title:'数据表格'}
+        // },
         {
             path:'/upload',
             component: resolve => require(['./components/Upload.vue'], resolve),
-            meta: {requiresAuth: true,title:'上传文件'}
-        },
-        {
-          path:'/mycharts',
-          component:resolve =>require(['./components/charts.vue'],resolve),
-          meta: {requiresAuth:true,title:'图表信息'}
+            meta: {requiresAuth: true,title:'论文检测'}
         },
         // {
-        //   path:'/tabs',
-        //   component:resolve =>require(['./components/Tabs.vue'],resolve),
-        //   meta: {requiresAuth:true,title:'通知消息'}
-        // }
+        //   path:'/mycharts',
+        //   component:resolve =>require(['./components/charts.vue'],resolve),
+        //   meta: {requiresAuth:true,title:'图表信息'}
+        // },
         {
-          path:'/geo',
-          component:resolve=>require(['./components/geo.vue'],resolve),
-          meta: {requiresAuth:true,title:'地理显示'}
-        }
+          path:'/tabs',
+          component:resolve =>require(['./components/Tabs.vue'],resolve),
+          meta: {requiresAuth:true,title:'通知消息'}
+        },
+        // {
+        //   path:'/geo',
+        //   component:resolve=>require(['./components/geo.vue'],resolve),
+        //   meta: {requiresAuth:true,title:'地理显示'}
+        // },
+        {
+          path:'/paperForm',
+          component:() =>import('./components/paperForm.vue'),
+          meta: {requiresAuth:true,title:'论文格式'}
+        },
       ]
     },
     {
@@ -62,16 +67,21 @@ export default new Router({
       path: '*',
       redirect: '/404'
     },
+    // {
+    //   path: '/frontHead',
+    //   component: () => import(/* webpackChunkName: "about" */ './components/frontHead.vue')
+    // },
     {
-      path: '/firstPage',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './components/firstPage.vue')
+      path:'/firstPage',
+      component:() =>import('./components/firstPage.vue')
     },
     {
-      path: '/frontHead',
-      component: () => import(/* webpackChunkName: "about" */ './components/frontHead.vue')
-    }
+      path:'/test2',
+      component:() =>import('./components/test2.vue')
+    },
+    // {
+    //   path:'/firstPageHead',
+    //   component:()=>import('./components/firstPageHead')
+    // }
   ]
 })

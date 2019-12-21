@@ -6,10 +6,19 @@ import './plugins/element.js'
 import ElementUI from 'element-ui'
 import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css'
-import vueXlsxTable from 'vue-xlsx-table'
-Vue.use(vueXlsxTable,{rABS:false})
+// import vueXlsxTable from 'vue-xlsx-table'
+import "swiper/css/swiper.min.css"
+import animated from 'animate.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+// require styles
+import 'swiper/css/swiper.css'
+
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+// import "swiper/css/swiper.css"
+// Vue.use(vueXlsxTable,{rABS:false})
 Vue.use(ElementUI)
+Vue.use(animated)
 Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
 
