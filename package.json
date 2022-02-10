@@ -16,7 +16,7 @@
     "echarts": "^4.4.0",
     "element-ui": "^2.11.1",
     "file-saver": "^2.0.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.0",
     "swiper": "^5.2.1",
     "vue": "^2.6.10",
